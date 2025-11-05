@@ -1,15 +1,20 @@
 import { useState } from 'react';
-import { Menu, Moon, Sun, ChevronLeft, ChevronDown, ChevronRight, Sparkles, Binary, Hash, Hexagon } from 'lucide-react';
+import { Menu, Moon, Sun, ChevronLeft, ChevronDown, ChevronRight, Sparkles, Binary, Hash, Hexagon, Clock } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { useOutputFormat } from './OutputFormatProvider';
+import { useLanguage } from './LanguageProvider';
+import { useSessionClear, type SessionClearTimeout } from './SessionClearProvider';
 import { Button } from '@/components/ui/button';
 
 export default function ThemeSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [themeExpanded, setThemeExpanded] = useState(false);
   const [outputExpanded, setOutputExpanded] = useState(false);
+  const [sessionExpanded, setSessionExpanded] = useState(false);
   const { theme, setTheme } = useTheme();
   const { outputFormat, setOutputFormat } = useOutputFormat();
+  const { timeoutMinutes, setTimeoutMinutes } = useSessionClear();
+  const { t } = useLanguage();
 
   return (
     <>
@@ -21,7 +26,7 @@ export default function ThemeSidebar() {
       >
         <div className="p-6 h-full overflow-y-auto">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold">Settings</h3>
+            <h3 className="text-lg font-bold">{t.settings}</h3>
             <Button
               variant="ghost"
               size="icon"
@@ -44,7 +49,7 @@ export default function ThemeSidebar() {
                   <div className="p-2 bg-primary/10 rounded-lg">
                     {theme === 'dark' ? <Moon className="w-4 h-4 text-primary" /> : <Sun className="w-4 h-4 text-primary" />}
                   </div>
-                  <span className="font-semibold">Theme</span>
+                  <span className="font-semibold">{t.theme}</span>
                 </div>
                 {themeExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
               </button>
@@ -61,7 +66,7 @@ export default function ThemeSidebar() {
                     }`}
                   >
                     <Sun className="w-4 h-4" />
-                    <span className="text-sm font-medium">Light Mode</span>
+                    <span className="text-sm font-medium">{t.lightMode}</span>
                     {theme === 'light' && (
                       <div className="ml-auto w-2 h-2 rounded-full bg-primary" />
                     )}
@@ -77,7 +82,7 @@ export default function ThemeSidebar() {
                     }`}
                   >
                     <Moon className="w-4 h-4" />
-                    <span className="text-sm font-medium">Dark Mode</span>
+                    <span className="text-sm font-medium">{t.darkMode}</span>
                     {theme === 'dark' && (
                       <div className="ml-auto w-2 h-2 rounded-full bg-primary" />
                     )}
@@ -97,7 +102,7 @@ export default function ThemeSidebar() {
                   <div className="p-2 bg-chart-2/10 rounded-lg">
                     <Sparkles className="w-4 h-4 text-chart-2" />
                   </div>
-                  <span className="font-semibold">Output Encryption</span>
+                  <span className="font-semibold">{t.outputEncryption}</span>
                 </div>
                 {outputExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
               </button>
@@ -114,7 +119,7 @@ export default function ThemeSidebar() {
                     }`}
                   >
                     <Sparkles className="w-4 h-4" />
-                    <span className="text-sm font-medium">Emoji Output</span>
+                    <span className="text-sm font-medium">{t.emojiOutput}</span>
                     {outputFormat === 'emoji' && (
                       <div className="ml-auto w-2 h-2 rounded-full bg-chart-2" />
                     )}
@@ -130,7 +135,7 @@ export default function ThemeSidebar() {
                     }`}
                   >
                     <Binary className="w-4 h-4" />
-                    <span className="text-sm font-medium">0s, 1s Output</span>
+                    <span className="text-sm font-medium">{t.binaryOutput}</span>
                     {outputFormat === 'binary' && (
                       <div className="ml-auto w-2 h-2 rounded-full bg-chart-2" />
                     )}
@@ -146,7 +151,7 @@ export default function ThemeSidebar() {
                     }`}
                   >
                     <Hash className="w-4 h-4" />
-                    <span className="text-sm font-medium">TN Output</span>
+                    <span className="text-sm font-medium">{t.alphanumericOutput}</span>
                     {outputFormat === 'alphanumeric' && (
                       <div className="ml-auto w-2 h-2 rounded-full bg-chart-2" />
                     )}
@@ -162,11 +167,51 @@ export default function ThemeSidebar() {
                     }`}
                   >
                     <Hexagon className="w-4 h-4" />
-                    <span className="text-sm font-medium">Hex Output</span>
+                    <span className="text-sm font-medium">{t.hexOutput}</span>
                     {outputFormat === 'hex' && (
                       <div className="ml-auto w-2 h-2 rounded-full bg-chart-2" />
                     )}
                   </button>
+                </div>
+              )}
+            </div>
+
+            {/* Session Clear Section */}
+            <div className="border border-card-border rounded-lg overflow-hidden">
+              <button
+                data-testid="button-toggle-session"
+                onClick={() => setSessionExpanded(!sessionExpanded)}
+                className="w-full flex items-center justify-between p-4 bg-background hover-elevate active-elevate-2 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-chart-1/10 rounded-lg">
+                    <Clock className="w-4 h-4 text-chart-1" />
+                  </div>
+                  <span className="font-semibold">Session Clear</span>
+                </div>
+                {sessionExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+              </button>
+              
+              {sessionExpanded && (
+                <div className="p-2 space-y-2 bg-card">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((minutes) => (
+                    <button
+                      key={minutes}
+                      data-testid={`button-session-${minutes}`}
+                      onClick={() => setTimeoutMinutes(minutes as SessionClearTimeout)}
+                      className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-all hover-elevate active-elevate-2 ${
+                        timeoutMinutes === minutes
+                          ? 'bg-chart-1/10 border-chart-1 text-chart-1'
+                          : 'bg-background border-border text-foreground'
+                      }`}
+                    >
+                      <Clock className="w-4 h-4" />
+                      <span className="text-sm font-medium">{minutes} minute{minutes > 1 ? 's' : ''}</span>
+                      {timeoutMinutes === minutes && (
+                        <div className="ml-auto w-2 h-2 rounded-full bg-chart-1" />
+                      )}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>

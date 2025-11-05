@@ -1,19 +1,65 @@
+# Dependencies
 node_modules
+
+# Build outputs
 dist
-.DS_Store
 server/public
+
+# Environment variables
+.env
+.env.local
+
+# Replit-specific files and directories
+.replit
+.repl
+.repl_history
+replit_db
+replit.nix
+.config/
+.cache/
+.local/
+
+# System files
+.DS_Store
+
+# Vite temporary files
 vite.config.ts.*
+
+# Archives
 *.tar.gz
+
+# Internal documentation (not for public repo)
 attached_assets
 replit.md
 design_guidelines.md
 IMAGE_DECRYPTION_FIX.md
-.env
-.env.local
-replit.nix
-.repl
-.repl_history
-replit_db
-__pycache__/
-.local/
-.replit
+BULKFILE.md
+BULK_FILE_ENCRYPTION_IMPLEMENTATION.md
+APPROACH3_IMPLEMENTATION.md
+LANGUAGE_SUPPORT.md
+TEST_CHECKLIST.md
+
+# IDE directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+Thumbs.db
+.Spotlight-V100
+.Trashes
+
+# AI/ML model files used for testing
+*.pt
+*.pth
+*.onnx
+models/
+*.safetensors

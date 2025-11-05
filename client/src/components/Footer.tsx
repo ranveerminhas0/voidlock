@@ -5,8 +5,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -26,27 +29,29 @@ export default function Footer() {
                 <h3 className="font-bold text-lg">VoidLock</h3>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="text-xs font-semibold text-muted-foreground cursor-help">v2</span>
+                    <span className="text-xs font-semibold text-muted-foreground cursor-help">
+                      v2.1
+                    </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="text-sm">Version 2.0 - Stable Release</p>
+                    <p className="text-sm">{t.version}</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Secure, private, client-side encryption for everyone.
+              {t.securePrivateClientSide}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4">{t.quickLinks}</h4>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link href="/security">
                   <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    Security Details
+                    {t.securityDetails}
                   </span>
                 </Link>
               </li>
@@ -63,35 +68,38 @@ export default function Footer() {
               <li>
                 <Link href="/contact">
                   <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    Contact
+                    {t.contact}
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/report-vulnerability">
                   <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    Report a vulnerability
+                    {t.reportVulnerability}
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/system-status">
-                  <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer" data-testid="link-system-status">
-                    System Status
+                  <span
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    data-testid="link-system-status"
+                  >
+                    {t.systemStatus}
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/privacy">
                   <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    Privacy Policy
+                    {t.privacy}
                   </span>
                 </Link>
               </li>
               <li>
                 <Link href="/terms">
                   <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    T&Cs
+                    {t.terms}
                   </span>
                 </Link>
               </li>
@@ -100,7 +108,7 @@ export default function Footer() {
 
           {/* Connect Section */}
           <div>
-            <h4 className="font-semibold mb-4">Connect Developer</h4>
+            <h4 className="font-semibold mb-4">{t.connectDeveloper}</h4>
             <div className="flex gap-3">
               <a
                 href="https://linkedin.com/in/ranveerminhas0"
@@ -131,16 +139,18 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="border-t border-border pt-6 text-center">
           <p className="text-xs text-muted-foreground">
-            © 2025 VoidLock{' '}
+            © 2025 VoidLock{" "}
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="text-[10px] font-semibold cursor-help">v2</span>
+                <span className="text-[10px] font-semibold cursor-help">
+                  v2.1
+                </span>
               </TooltipTrigger>
               <TooltipContent>
-                <p className="text-sm">Version 2.0 - Stable Release</p>
+                <p className="text-sm">{t.version}</p>
               </TooltipContent>
             </Tooltip>
-            . All rights reserved. Made with privacy in mind.
+            . {t.allRightsReserved}
           </p>
         </div>
       </div>

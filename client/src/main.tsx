@@ -3,3 +3,16 @@ import App from "./App";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(<App />);
+
+// Register service worker for offline functionality
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => {
+        // Service worker registered successfully
+      })
+      .catch(() => {
+        // Service worker registration failed - app will still work
+      });
+  });
+}

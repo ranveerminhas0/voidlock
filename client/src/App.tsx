@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { OutputFormatProvider } from "@/components/OutputFormatProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import { SessionClearProvider } from "@/components/SessionClearProvider";
+import { useInactivityTimer } from "@/hooks/useInactivityTimer";
 import Home from "@/pages/Home";
 import Security from "@/pages/Security";
 import Privacy from "@/pages/Privacy";
@@ -15,6 +18,8 @@ import SystemStatus from "@/pages/SystemStatus";
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  useInactivityTimer();
+
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -32,14 +37,18 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <OutputFormatProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
-        </OutputFormatProvider>
-      </ThemeProvider>
+      <LanguageProvider>
+        <ThemeProvider>
+          <OutputFormatProvider>
+            <SessionClearProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Router />
+              </TooltipProvider>
+            </SessionClearProvider>
+          </OutputFormatProvider>
+        </ThemeProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

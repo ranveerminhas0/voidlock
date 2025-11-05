@@ -4,8 +4,11 @@ import Footer from '@/components/Footer';
 import { FileText, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import { useLanguage } from '@/components/LanguageProvider';
 
 export default function Terms() {
+  const { t } = useLanguage();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -20,14 +23,14 @@ export default function Terms() {
             <Link href="/">
               <Button variant="ghost" className="gap-2 mb-4" data-testid="button-back">
                 <ChevronLeft className="w-4 h-4" />
-                Back to Home
+                {t.backToHome}
               </Button>
             </Link>
             <div className="mb-2">
-              <h1 className="text-4xl font-bold">Terms and Conditions</h1>
+              <h1 className="text-4xl font-bold">{t.termsAndConditionsTitle}</h1>
             </div>
             <p className="text-muted-foreground mt-2">
-              Last updated: October 6, 2025
+              {t.lastUpdated}: {t.termsLastUpdatedDate}
             </p>
           </div>
         </header>
@@ -35,128 +38,128 @@ export default function Terms() {
         <main className="px-4 py-12">
           <div className="max-w-4xl mx-auto space-y-8">
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.acceptanceOfTermsTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                By accessing and using VoidLock, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these terms, please do not use this service.
+                {t.acceptanceOfTermsDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">2. Description of Service</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.descriptionOfServiceTitle}</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  VoidLock is a free, open-source, client-side encryption tool that allows users to encrypt and decrypt text messages and images using AES-GCM encryption via the Web Crypto API. The service:
+                  {t.descriptionOfServiceDescription}
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Operates entirely within your web browser</li>
-                  <li>Supports text message encryption in multiple formats (emoji, binary, alphanumeric, hex)</li>
-                  <li>Supports image encryption (JPG, PNG, WEBP, SVG) saved as secure .vlock files</li>
-                  <li>Does not store any user data on external servers</li>
-                  <li>Does not require user registration or authentication</li>
-                  <li>Is provided "as is" without warranties of any kind</li>
+                  <li>{t.descriptionOfServiceItem1}</li>
+                  <li>{t.descriptionOfServiceItem2}</li>
+                  <li>{t.descriptionOfServiceItem3}</li>
+                  <li>{t.descriptionOfServiceItem4}</li>
+                  <li>{t.descriptionOfServiceItem5}</li>
+                  <li>{t.descriptionOfServiceItem6}</li>
                 </ul>
               </div>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">3. User Responsibilities</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.userResponsibilitiesTitle}</h2>
               <div className="space-y-4 text-muted-foreground">
-                <p>As a user of VoidLock, you are responsible for:</p>
+                <p>{t.userResponsibilitiesDescription}</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li><strong className="text-foreground">Password Security:</strong> Choosing strong, secure passwords for encryption</li>
-                  <li><strong className="text-foreground">Key Management:</strong> Safely storing and sharing your encryption keys</li>
-                  <li><strong className="text-foreground">Data Backup:</strong> Keeping copies of your encryption keys and encrypted .vlock files - lost keys cannot be recovered</li>
-                  <li><strong className="text-foreground">Image Content:</strong> Ensuring you have the right to encrypt and share any images you upload</li>
-                  <li><strong className="text-foreground">Lawful Use:</strong> Using the service only for lawful purposes</li>
-                  <li><strong className="text-foreground">Compliance:</strong> Complying with all applicable laws and regulations in your jurisdiction</li>
+                  <li>{t.userResponsibilitiesItem1}</li>
+                  <li>{t.userResponsibilitiesItem2}</li>
+                  <li>{t.userResponsibilitiesItem3}</li>
+                  <li>{t.userResponsibilitiesItem4}</li>
+                  <li>{t.userResponsibilitiesItem5}</li>
+                  <li>{t.userResponsibilitiesItem6}</li>
                 </ul>
               </div>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">4. Prohibited Uses</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.prohibitedUsesTitle}</h2>
               <div className="space-y-4 text-muted-foreground">
-                <p>You agree not to use VoidLock to:</p>
+                <p>{t.prohibitedUsesDescription}</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Engage in any illegal activity or violate any laws</li>
-                  <li>Harm minors in any way</li>
-                  <li>Transmit malware, viruses, or any other malicious code</li>
-                  <li>Infringe on intellectual property rights of others</li>
-                  <li>Attempt to reverse engineer or compromise the security of the application</li>
-                  <li>Use the service in any way that could damage, disable, or impair the service</li>
+                  <li>{t.prohibitedUsesItem1}</li>
+                  <li>{t.prohibitedUsesItem2}</li>
+                  <li>{t.prohibitedUsesItem3}</li>
+                  <li>{t.prohibitedUsesItem4}</li>
+                  <li>{t.prohibitedUsesItem5}</li>
+                  <li>{t.prohibitedUsesItem6}</li>
                 </ul>
               </div>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">5. No Warranty</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.noWarrantyTitle}</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  VoidLock is provided "AS IS" and "AS AVAILABLE" without any warranties of any kind, either express or implied, including but not limited to:
+                  {t.noWarrantyDescription}
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Warranties of merchantability</li>
-                  <li>Fitness for a particular purpose</li>
-                  <li>Non-infringement</li>
-                  <li>Uninterrupted or error-free operation</li>
-                  <li>Security or accuracy of the service</li>
+                  <li>{t.noWarrantyItem1}</li>
+                  <li>{t.noWarrantyItem2}</li>
+                  <li>{t.noWarrantyItem3}</li>
+                  <li>{t.noWarrantyItem4}</li>
+                  <li>{t.noWarrantyItem5}</li>
                 </ul>
               </div>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">6. Limitation of Liability</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.limitationOfLiabilityTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                To the maximum extent permitted by law, VoidLock and its developers shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:
+                {t.limitationOfLiabilityDescription}
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4 text-muted-foreground">
-                <li>Your use or inability to use the service</li>
-                <li>Loss of encryption keys or inability to decrypt data</li>
-                <li>Any unauthorized access to or use of our servers</li>
-                <li>Any bugs, viruses, or other harmful code</li>
-                <li>Any errors or omissions in any content</li>
+                <li>{t.limitationOfLiabilityItem1}</li>
+                <li>{t.limitationOfLiabilityItem2}</li>
+                <li>{t.limitationOfLiabilityItem3}</li>
+                <li>{t.limitationOfLiabilityItem4}</li>
+                <li>{t.limitationOfLiabilityItem5}</li>
               </ul>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">7. Indemnification</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.indemnificationTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                You agree to indemnify and hold harmless VoidLock and its developers from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of the service or violation of these terms.
+                {t.indemnificationDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">8. Data Loss and Recovery</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.dataLossRecoveryTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                <strong className="text-foreground">Important:</strong> VoidLock does not store your data. If you lose your encryption key, your encrypted messages and .vlock image files cannot be recovered. We are not responsible for any data loss. Always keep secure backups of your encryption keys and encrypted files.
+                {t.dataLossRecoveryDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">9. Modifications to Service</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.modificationsToServiceTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                We reserve the right to modify or discontinue the service at any time, with or without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuance of the service.
+                {t.modificationsToServiceDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">10. Changes to Terms</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.changesToTermsTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                We reserve the right to update these terms at any time. Changes will be posted on this page with an updated revision date. Your continued use of the service after changes constitutes acceptance of the updated terms.
+                {t.changesToTermsDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">11. Governing Law</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.governingLawTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                These terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.
+                {t.governingLawDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">12. Contact Information</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.contactInformationTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                If you have any questions about these Terms and Conditions, please visit our <Link href="/contact"><span className="text-primary hover:underline">Contact page</span></Link>.
+                {t.contactInformationDescription}
               </p>
             </section>
 
@@ -164,7 +167,7 @@ export default function Terms() {
               <Link href="/">
                 <Button size="lg" className="gap-2" data-testid="button-back-bottom">
                   <ChevronLeft className="w-4 h-4" />
-                  Back to Home
+                  {t.backToHome}
                 </Button>
               </Link>
             </div>

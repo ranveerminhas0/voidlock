@@ -1,8 +1,9 @@
 import type { Argon2Params } from './deviceDetection';
+import { secureWipe } from './secureMemory';
 
 let argon2idModule: any = null;
 
-async function loadArgon2() {
+export async function loadArgon2() {
   if (!argon2idModule) {
     const { argon2id } = await import('hash-wasm');
     argon2idModule = argon2id;
@@ -39,19 +40,25 @@ export async function encryptWithArgon2(
   );
   
   const iv = crypto.getRandomValues(new Uint8Array(12));
+  const plaintext = enc.encode(message);
   
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },
     cryptoKey,
-    enc.encode(message)
+    plaintext
   );
   
-  return {
+  const result = {
     encryptedData: new Uint8Array(encrypted),
     salt,
     iv,
     params
   };
+  
+  secureWipe(keyBytes);
+  secureWipe(plaintext);
+  
+  return result;
 }
 
 export async function decryptWithArgon2(
@@ -87,7 +94,11 @@ export async function decryptWithArgon2(
     encryptedData
   );
   
-  return new TextDecoder().decode(decrypted);
+  const result = new TextDecoder().decode(decrypted);
+  
+  secureWipe(keyBytes);
+  
+  return result;
 }
 
 export async function encryptFileWithArgon2(
@@ -121,14 +132,15 @@ export async function encryptFileWithArgon2(
   const iv = crypto.getRandomValues(new Uint8Array(12));
   
   const fileBuffer = await file.arrayBuffer();
+  const fileBytes = new Uint8Array(fileBuffer);
   
   const fileType = file.type || 'application/octet-stream';
   const metaHeader = `IMAGE:${fileType}:`;
   const metaBytes = enc.encode(metaHeader);
   
-  const combined = new Uint8Array(metaBytes.length + fileBuffer.byteLength);
+  const combined = new Uint8Array(metaBytes.length + fileBytes.length);
   combined.set(metaBytes, 0);
-  combined.set(new Uint8Array(fileBuffer), metaBytes.length);
+  combined.set(fileBytes, metaBytes.length);
   
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },
@@ -168,6 +180,11 @@ export async function encryptFileWithArgon2(
   
   const blob = new Blob([withHeader], { type: 'application/octet-stream' });
   const url = URL.createObjectURL(blob);
+  
+  secureWipe(keyBytes);
+  secureWipe(combined);
+  secureWipe(fileBytes);
+  
   return { blob, url };
 }
 
@@ -188,9 +205,7 @@ export async function decryptFileWithArgon2(
   
   const paramsBytes = bytes.slice(offset, offset + paramsLength);
   const paramsStr = new TextDecoder().decode(paramsBytes);
-  console.log('[Argon2 Decrypt] Params string:', paramsStr);
   const params = JSON.parse(paramsStr);
-  console.log('[Argon2 Decrypt] Parsed params:', params);
   offset += paramsLength;
   
   const salt = bytes.slice(offset, offset + 32);
@@ -201,9 +216,6 @@ export async function decryptFileWithArgon2(
   
   const ciphertext = bytes.slice(offset);
   
-  console.log('[Argon2 Decrypt] Salt length:', salt.length, 'IV length:', iv.length, 'Ciphertext length:', ciphertext.length);
-  console.log('[Argon2 Decrypt] Using params - memory:', params.memory, 'iterations:', params.iterations, 'parallelism:', params.parallelism, 'hashLength:', params.hashLength || 32);
-  
   const keyBytes = await argon2id({
     password,
     salt,
@@ -213,8 +225,6 @@ export async function decryptFileWithArgon2(
     hashLength: params.hashLength || 32,
     outputType: 'binary'
   });
-  
-  console.log('[Argon2 Decrypt] Key derived, length:', keyBytes.length);
   
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
@@ -230,8 +240,6 @@ export async function decryptFileWithArgon2(
     ciphertext
   );
   
-  console.log('[Argon2 Decrypt] Decryption successful, decrypted length:', decrypted.byteLength);
-  
   const decryptedBytes = new Uint8Array(decrypted);
   
   // More robust metadata parsing
@@ -243,7 +251,6 @@ export async function decryptFileWithArgon2(
   // Try to decode and find the header pattern
   try {
     const headerSection = new TextDecoder().decode(decryptedBytes.slice(0, searchLimit));
-    console.log('[Argon2 Decrypt] Header section (first 100 chars):', headerSection.substring(0, 100));
     
     // Modified regex to handle empty MIME types: IMAGE::
     const imageHeaderMatch = headerSection.match(/^IMAGE:[^:]*:/);
@@ -253,7 +260,6 @@ export async function decryptFileWithArgon2(
       const headerStr = imageHeaderMatch[0];
       const headerBytes = new TextEncoder().encode(headerStr);
       metaEnd = headerBytes.length;
-      console.log('[Argon2 Decrypt] Header matched:', headerStr, 'length:', metaEnd);
     } else {
       // Fallback to old method if regex doesn't match
       for (let i = 0; i < searchLimit - 1; i++) {
@@ -263,7 +269,6 @@ export async function decryptFileWithArgon2(
             const colonCount = (possibleHeader.match(/:/g) || []).length;
             if (colonCount >= 2) {
               metaEnd = i + 1;
-              console.log('[Argon2 Decrypt] Header found via fallback:', possibleHeader, 'length:', metaEnd);
               break;
             }
           }
@@ -271,13 +276,13 @@ export async function decryptFileWithArgon2(
       }
     }
   } catch (e) {
-    console.error('[Argon2 Decrypt] Metadata parsing error:', e);
+    // Metadata parsing error - continue with empty metadata
   }
   
   const metaString = metaEnd > 0 ? new TextDecoder().decode(decryptedBytes.slice(0, metaEnd)) : '';
   const imageBytes = decryptedBytes.slice(metaEnd);
   
-  console.log('[Argon2 Decrypt] Metadata:', metaString, 'Image bytes length:', imageBytes.length);
+  secureWipe(keyBytes);
   
   return { metadata: metaString, data: imageBytes.buffer };
 }
@@ -310,17 +315,20 @@ export async function encryptWithPBKDF2Fallback(
   );
 
   const iv = crypto.getRandomValues(new Uint8Array(12));
+  const plaintext = enc.encode(message);
 
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },
     key,
-    enc.encode(message)
+    plaintext
   );
 
   const finalData = new Uint8Array(salt.byteLength + iv.byteLength + encrypted.byteLength);
   finalData.set(salt, 0);
   finalData.set(iv, salt.byteLength);
   finalData.set(new Uint8Array(encrypted), salt.byteLength + iv.byteLength);
+
+  secureWipe(plaintext);
 
   return finalData;
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import GeometricBackground from '@/components/GeometricBackground';
 import Footer from '@/components/Footer';
 import { ChevronLeft } from 'lucide-react';
@@ -11,16 +11,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-
-const contactFormSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
-  subject: z.string().min(1, 'Subject is required'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-});
+import { useLanguage } from '@/components/LanguageProvider';
 
 export default function Contact() {
   const { toast } = useToast();
+  const { t } = useLanguage();
+
+  const contactFormSchema = useMemo(() => z.object({
+    name: z.string().min(1, t.nameRequired),
+    email: z.string().email(t.emailInvalid),
+    subject: z.string().min(1, t.subjectRequired),
+    message: z.string().min(10, t.messageMinLength),
+  }), [t]);
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,8 +50,8 @@ export default function Contact() {
 
       if (response.ok) {
         toast({
-          title: 'Message sent!',
-          description: 'Thank you for reaching out. We\'ll get back to you soon.',
+          title: t.messageSentTitle,
+          description: t.messageSentDescription,
         });
         form.reset();
       } else {
@@ -57,8 +59,8 @@ export default function Contact() {
       }
     } catch (error) {
       toast({
-        title: 'Error',
-        description: 'Failed to send message. Please try again or email us directly.',
+        title: t.messageErrorTitle,
+        description: t.messageErrorDescription,
         variant: 'destructive',
       });
     }
@@ -74,14 +76,14 @@ export default function Contact() {
             <Link href="/">
               <Button variant="ghost" className="gap-2 mb-4" data-testid="button-back">
                 <ChevronLeft className="w-4 h-4" />
-                Back to Home
+                {t.backToHome}
               </Button>
             </Link>
             <div className="mb-2">
-              <h1 className="text-4xl font-bold">Contact Us</h1>
+              <h1 className="text-4xl font-bold">{t.contactUsTitle}</h1>
             </div>
             <p className="text-muted-foreground mt-2">
-              Get in touch with the VoidLock team
+              {t.contactUsSubtitle}
             </p>
           </div>
         </header>
@@ -89,14 +91,14 @@ export default function Contact() {
         <main className="px-4 py-12">
           <div className="max-w-4xl mx-auto space-y-8">
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.getInTouchTitle}</h2>
               <p className="text-muted-foreground mb-6">
-                We'd love to hear from you! Whether you have questions, feedback, or need support, feel free to reach out through any of the channels below.
+                {t.getInTouchDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-6 md:p-8">
-              <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
+              <h2 className="text-2xl font-bold mb-6">{t.sendUsAMessageTitle}</h2>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                   <FormField
@@ -104,9 +106,9 @@ export default function Contact() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Name</FormLabel>
+                        <FormLabel>{t.nameLabel}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Your name" {...field} data-testid="input-name" />
+                          <Input placeholder={t.namePlaceholder} {...field} data-testid="input-name" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -118,9 +120,9 @@ export default function Contact() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>{t.emailLabel}</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="your@email.com" {...field} data-testid="input-email" />
+                          <Input type="email" placeholder={t.emailPlaceholder} {...field} data-testid="input-email" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,9 +134,9 @@ export default function Contact() {
                     name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Subject</FormLabel>
+                        <FormLabel>{t.subjectLabel}</FormLabel>
                         <FormControl>
-                          <Input placeholder="What's this about?" {...field} data-testid="input-subject" />
+                          <Input placeholder={t.subjectPlaceholder} {...field} data-testid="input-subject" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -146,10 +148,10 @@ export default function Contact() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Message</FormLabel>
+                        <FormLabel>{t.messageLabel}</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Tell us more..." 
+                            placeholder={t.messagePlaceholder} 
                             className="resize-none min-h-[150px]" 
                             {...field} 
                             data-testid="textarea-message"
@@ -161,14 +163,14 @@ export default function Contact() {
                   />
 
                   <Button type="submit" className="w-full" data-testid="button-submit">
-                    Send Message
+                    {t.sendMessageButton}
                   </Button>
                 </form>
               </Form>
 
               <div className="mt-6 pt-6 border-t border-border">
                 <p className="text-sm text-muted-foreground text-center">
-                  Or email us directly at{' '}
+                  {t.orEmailDirectly}{' '}
                   <a 
                     href="mailto:support@voidlock.app" 
                     className="text-primary hover:underline break-all"
@@ -181,16 +183,16 @@ export default function Contact() {
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.frequentlyAskedQuestionsContact}</h2>
               <p className="text-muted-foreground mb-4">
-                Before reaching out, you might find answers to common questions on our <Link href="/"><span className="text-primary hover:underline">home page</span></Link> or in the <Link href="/security"><span className="text-primary hover:underline">Security Details</span></Link> section.
+                {t.frequentlyAskedQuestionsContactDescription}
               </p>
             </section>
 
             <section className="bg-card border-2 border-card-border rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4">Security Concerns?</h2>
+              <h2 className="text-2xl font-bold mb-4">{t.securityConcernsTitle}</h2>
               <p className="text-muted-foreground mb-4">
-                If you've discovered a security vulnerability, please report it responsibly through our <Link href="/report-vulnerability"><span className="text-primary hover:underline">vulnerability reporting page</span></Link>.
+                {t.securityConcernsDescription}
               </p>
             </section>
 
@@ -198,7 +200,7 @@ export default function Contact() {
               <Link href="/">
                 <Button size="lg" className="gap-2" data-testid="button-back-bottom">
                   <ChevronLeft className="w-4 h-4" />
-                  Back to Home
+                  {t.backToHome}
                 </Button>
               </Link>
             </div>

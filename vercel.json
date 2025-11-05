@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "node scripts/build-pwa.mjs",
   "outputDirectory": "dist/public",
   "devCommand": "npm run dev",
   "installCommand": "npm install",

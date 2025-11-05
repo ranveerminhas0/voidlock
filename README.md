@@ -1,14 +1,14 @@
-# 🔒 VoidLock v2
+# 🔒 VoidLock v2.1
 
 **Secure, Private, Client-Side Encryption for Everyone**
 
-[![Security Grade](https://img.shields.io/badge/Security%20Grade-A-brightgreen)](./SECURITY_AUDIT_REPORT.md)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Security Grade](https://img.shields.io/badge/Security%20Grade-A+-brightgreen)](./SECURITY_AUDIT_V2.1.md)
+[![License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-success)](https://github.com)
 
-VoidLock is a modern, client-side encryption utility that transforms your messages and images into multiple secure formats. Built with cutting-edge cryptographic standards, VoidLock ensures your data stays private—processed entirely in your browser, never touching any server.
+VoidLock is a modern, client-side encryption utility that transforms your messages, images, and entire folders into multiple secure formats. Built with cutting-edge cryptographic standards, VoidLock ensures your data stays private—processed entirely in your browser, never touching any server.
 
-![VoidLock Banner](https://img.shields.io/badge/VoidLock-v2.0-blue?style=for-the-badge)
+![VoidLock Banner](https://img.shields.io/badge/VoidLock-v2.1-blue?style=for-the-badge)
 
 ---
 
@@ -33,6 +33,13 @@ Encrypt your messages into:
 - Preserves image metadata
 - One-click download
 
+### 📁 **Bulk Folder Encryption** (New in v2.1)
+- Encrypt multiple files and folders into a single `.vlock` archive
+- Individual file encryption with unique salts and IVs per file
+- Encrypted manifest for complete metadata privacy
+- Selective decryption - extract individual files or entire archive
+- Perfect for backing up projects, document collections, or sensitive data
+
 ### 🛡️ **Security Features**
 - ✅ Client-side only (zero server interaction)
 - ✅ No data collection or storage
@@ -49,6 +56,14 @@ Encrypt your messages into:
 - Real-time validation
 - Clear visual feedback
 - Accessible interface (WCAG AAA compliant)
+
+### 📴 **Offline Functionality** (New in v2.1)
+- ✅ **Works 100% offline** after initial load
+- ✅ **Service worker caching** - all encryption/decryption happens locally
+- ✅ **Zero network dependency** - no internet required for operations
+- ✅ **Progressive Web App (PWA)** - install on any device
+- ✅ **Automatic updates** - seamless version updates when online
+- ✅ Perfect for air-gapped environments and privacy-focused users
 
 ### 📊 **System Monitoring**
 - **Real-time Status Dashboard**: Monitor all core services
@@ -111,6 +126,17 @@ User Input → Device Detection → Argon2id KDF → AES-GCM Encryption → Outp
    - Add `.vlock` header with metadata
 3. **Download**: Encrypted `.vlock` file
 
+### Bulk Folder Encryption (New in v2.1)
+1. **Select**: Choose a folder from your device
+2. **Processing**:
+   - Each file gets unique 32-byte salt + 12-byte IV
+   - Password → Argon2id → 256-bit master key
+   - Each file → Individual AES-GCM-256 encryption
+   - File metadata (names, paths, sizes) → Encrypted manifest
+   - All packaged into single `.vlock` archive
+3. **Download**: Encrypted `.vlock` archive file
+4. **Decryption**: Extract all files or select specific files to decrypt
+
 ### Decryption
 1. **Input**: Paste encrypted text or upload `.vlock` file
 2. **Password**: Enter the same password used for encryption
@@ -119,7 +145,7 @@ User Input → Device Detection → Argon2id KDF → AES-GCM Encryption → Outp
    - Password + salt → Argon2id → key
    - Verify authentication tag
    - Decrypt with AES-GCM
-4. **Output**: Original message or image
+4. **Output**: Original message, image, or files
 
 ---
 
@@ -199,16 +225,21 @@ VoidLock draws inspiration from modern security tools (Signal, ProtonMail) combi
 
 ## 🛡️ Security Audit
 
-VoidLock has undergone a comprehensive security audit with an **A grade** (⭐⭐⭐⭐⭐).
+VoidLock has undergone a comprehensive security audit with an **A+ grade** (⭐⭐⭐⭐⭐) - **PERFECT SCORE: 50/50 tests passed**.
 
 ### Key Findings:
 - ✅ No critical vulnerabilities
-- ✅ Strong cryptographic primitives
+- ✅ Strong cryptographic primitives (AES-256-GCM, Argon2id)
 - ✅ Proper IV and salt management
 - ✅ Rate limiting protection
+- ✅ CSP headers for XSS protection
+- ✅ HTTPS deployment verified (TLS 1.2+, HSTS)
+- ✅ Zero console logging in production
 - ✅ Production-ready implementation
 
-**View Full Report:** [SECURITY_AUDIT_REPORT.md](./SECURITY_AUDIT_REPORT.md)
+**View Full Reports:** 
+- [v2.1 Security Audit (Latest)](./SECURITY_AUDIT_V2.1.md) - **A+ Grade (50/50 tests)**
+- [v2.0 Security Audit](./SECURITY_AUDIT_REPORT.md) - A Grade
 
 ### Attack Resistance
 
@@ -268,15 +299,22 @@ VoidLock has undergone a comprehensive security audit with an **A grade** (⭐�
 
 ## 🚀 Deployment
 
-### Build for Production
+### Build for Production (with Offline Support)
 
 ```bash
-# Build the application
-npm run build
+# Build the application with PWA offline support
+node scripts/build-pwa.mjs
+
+# This will:
+# 1. Build the app with Vite
+# 2. Generate service worker asset manifest (sw-assets.json)
+# 3. Create a fully offline-capable build in dist/
 
 # Preview production build
 npm run preview
 ```
+
+**Note:** Use `node scripts/build-pwa.mjs` instead of `npm run build` for production deployments to ensure offline functionality works correctly.
 
 ### Environment Variables (Optional)
 
@@ -334,7 +372,9 @@ We welcome contributions! Here's how you can help:
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+**GPL 3.0** ensures that any modifications or derivative works must also be open-sourced under the same license, protecting the project from proprietary use.
 
 ---
 
@@ -416,23 +456,68 @@ The System Status page (`/system-status`) provides real-time monitoring of VoidL
 
 ## 🗺️ Roadmap
 
-### Version 2.1 (Planned)
-- [ ] Multi-language support (Spanish, French, German, Hindi)
-- [ ] Bulk file encryption
-- [ ] Browser extension
-- [ ] Dark/Light theme toggle improvements
-
-### Version 3.0 (Future)
+### Version 3.0 (Planned)
 - [ ] End-to-end encrypted messaging
 - [ ] Secure file sharing
 - [ ] Mobile applications (iOS/Android)
 - [ ] Hardware key support (WebAuthn)
 
+### Version 3.1 (Future)
+- [ ] Password manager integration
+- [ ] Blockchain-based file verification
+- [ ] Multi-device sync capabilities
+- [ ] Custom encryption algorithms support
+
 ---
 
 ## 📈 Changelog
 
-### Version 2.0 (October 12, 2025) - Current
+### Version 2.1 (November 3, 2025) - Current
+- ✅ Multi-language support (English, Spanish, French, German, Hindi, Chinese, Arabic)
+- ✅ Bulk file encryption with individual file salts/IVs
+- ✅ Encrypted manifest for complete metadata privacy
+- ✅ Selective decryption (decrypt specific files or entire archive)
+- ✅ Real-time progress tracking for bulk operations
+- ✅ **Offline functionality (PWA)**:
+  - Service worker implementation for complete offline operation
+  - Works 100% offline after initial load with internet
+  - Progressive Web App manifest for device installation
+  - Build-time asset manifest generation - all built JS/CSS bundles automatically cached on first load
+  - Client-side only architecture (no backend dependencies for offline support)
+  - Static hosting compatible (Vercel, Netlify, GitHub Pages, etc.)
+  - Zero network dependency for encryption/decryption
+  - Lightweight implementation (minimal memory overhead)
+- ✅ **Auto-refresh security features**:
+  - Automatic page refresh after downloading .vlock files (clears sensitive data from memory)
+  - Auto-refresh after copying encrypted text to clipboard
+  - Ensures passwords and plaintext are wiped from browser memory
+  - 1-second delay for download completion before refresh
+- ✅ **Global inactivity timer**:
+  - Configurable auto-clear timeout (1-10 minutes)
+  - Automatic page refresh on inactivity to clear sensitive data
+  - Resets on any user activity (mouse, keyboard, touch, scroll)
+  - Persistent settings saved in localStorage
+  - Works across all pages (Home, Security, Contact, etc.)
+- ✅ **Enhanced System Status page**:
+  - Real-time interactive testing with "Run System Tests" button
+  - Live performance metrics and latency tracking for all core services
+  - Mobile-responsive charts and layouts (optimized for small screens)
+  - Historical trends visualization with area charts
+  - Individual service status indicators (Operational, Degraded, Down)
+  - Comprehensive system health dashboard
+- ✅ Fixed critical decryption freeze bug (16-50min → 3 seconds)
+- ✅ Fixed file picker bug on mobile devices (first-upload registration issue)
+- ✅ Memory clearing after encryption/decryption operations
+- ✅ Dark/Light theme toggle improvements
+- ✅ UI/UX improvements:
+  - Language selector button repositioned to right side
+  - Optimized card heights and spacing
+  - Added mobile-specific hints for .vlock file locations
+  - Improved button stacking and visual hierarchy
+  - Enhanced file picker interaction consistency
+  - Mobile-friendly System Status page with responsive charts
+
+### Version 2.0 (October 12, 2025)
 - ✅ Fixed critical image decryption bugs
 - ✅ Strengthened Argon2 parameters (24MB mobile, 96MB desktop)
 - ✅ Implemented exponential backoff rate limiting
