@@ -7,6 +7,12 @@ interface SessionClearContextType {
   setTimeoutMinutes: (minutes: SessionClearTimeout) => void;
   isEnabled: boolean;
   setIsEnabled: (enabled: boolean) => void;
+  isOperationInProgress: boolean;
+  setIsOperationInProgress: (inProgress: boolean) => void;
+  showTimerInApp: boolean;
+  setShowTimerInApp: (show: boolean) => void;
+  timeRemaining: number;
+  setTimeRemaining: (time: number) => void;
 }
 
 const SessionClearContext = createContext<SessionClearContextType | undefined>(undefined);
@@ -22,6 +28,15 @@ export function SessionClearProvider({ children }: { children: ReactNode }) {
     return stored !== null ? stored === 'true' : true;
   });
 
+  const [isOperationInProgress, setIsOperationInProgress] = useState<boolean>(false);
+
+  const [showTimerInApp, setShowTimerInAppState] = useState<boolean>(() => {
+    const stored = localStorage.getItem('voidlock-show-timer-in-app');
+    return stored === 'true';
+  });
+
+  const [timeRemaining, setTimeRemaining] = useState<number>(0);
+
   const setTimeoutMinutes = (minutes: SessionClearTimeout) => {
     setTimeoutMinutesState(minutes);
     localStorage.setItem('voidlock-session-clear-timeout', minutes.toString());
@@ -30,6 +45,11 @@ export function SessionClearProvider({ children }: { children: ReactNode }) {
   const setIsEnabled = (enabled: boolean) => {
     setIsEnabledState(enabled);
     localStorage.setItem('voidlock-session-clear-enabled', enabled.toString());
+  };
+
+  const setShowTimerInApp = (show: boolean) => {
+    setShowTimerInAppState(show);
+    localStorage.setItem('voidlock-show-timer-in-app', show.toString());
   };
 
   useEffect(() => {
@@ -41,7 +61,18 @@ export function SessionClearProvider({ children }: { children: ReactNode }) {
   }, [isEnabled]);
 
   return (
-    <SessionClearContext.Provider value={{ timeoutMinutes, setTimeoutMinutes, isEnabled, setIsEnabled }}>
+    <SessionClearContext.Provider value={{ 
+      timeoutMinutes, 
+      setTimeoutMinutes, 
+      isEnabled, 
+      setIsEnabled, 
+      isOperationInProgress, 
+      setIsOperationInProgress,
+      showTimerInApp,
+      setShowTimerInApp,
+      timeRemaining,
+      setTimeRemaining
+    }}>
       {children}
     </SessionClearContext.Provider>
   );

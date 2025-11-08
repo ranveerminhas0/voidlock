@@ -30,7 +30,7 @@ export default function Footer() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="text-xs font-semibold text-muted-foreground cursor-help">
-                      v2.1
+                      v2.2
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -143,11 +143,11 @@ export default function Footer() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <span className="text-[10px] font-semibold cursor-help">
-                  v2.1
+                  v2.2
                 </span>
               </TooltipTrigger>
               <TooltipContent>
-                <p className="text-sm">{t.version}</p>
+                <span className="text-sm">{t.version}</span>
               </TooltipContent>
             </Tooltip>
             . {t.allRightsReserved}

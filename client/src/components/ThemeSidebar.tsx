@@ -13,7 +13,7 @@ export default function ThemeSidebar() {
   const [sessionExpanded, setSessionExpanded] = useState(false);
   const { theme, setTheme } = useTheme();
   const { outputFormat, setOutputFormat } = useOutputFormat();
-  const { timeoutMinutes, setTimeoutMinutes } = useSessionClear();
+  const { timeoutMinutes, setTimeoutMinutes, showTimerInApp, setShowTimerInApp } = useSessionClear();
   const { t } = useLanguage();
 
   return (
@@ -194,7 +194,7 @@ export default function ThemeSidebar() {
               
               {sessionExpanded && (
                 <div className="p-2 space-y-2 bg-card">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((minutes) => (
+                  {[1, 2, 3, 4].map((minutes) => (
                     <button
                       key={minutes}
                       data-testid={`button-session-${minutes}`}
@@ -212,6 +212,24 @@ export default function ThemeSidebar() {
                       )}
                     </button>
                   ))}
+                  
+                  <div className="pt-2 mt-2 border-t border-border">
+                    <button
+                      data-testid="button-toggle-timer-display"
+                      onClick={() => setShowTimerInApp(!showTimerInApp)}
+                      className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-all hover-elevate active-elevate-2 ${
+                        showTimerInApp
+                          ? 'bg-primary/10 border-primary text-primary'
+                          : 'bg-background border-border text-foreground'
+                      }`}
+                    >
+                      <Clock className="w-4 h-4" />
+                      <span className="text-sm font-medium">SHOW IN APP</span>
+                      {showTimerInApp && (
+                        <div className="ml-auto w-2 h-2 rounded-full bg-primary" />
+                      )}
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

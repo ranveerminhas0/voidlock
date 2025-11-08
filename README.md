@@ -1,4 +1,4 @@
-# 🔒 VoidLock v2.1
+# 🔒 VoidLock v2.2
 
 **Secure, Private, Client-Side Encryption for Everyone**
 
@@ -8,7 +8,7 @@
 
 VoidLock is a modern, client-side encryption utility that transforms your messages, images, and entire folders into multiple secure formats. Built with cutting-edge cryptographic standards, VoidLock ensures your data stays private—processed entirely in your browser, never touching any server.
 
-![VoidLock Banner](https://img.shields.io/badge/VoidLock-v2.1-blue?style=for-the-badge)
+![VoidLock Banner](https://img.shields.io/badge/VoidLock-v2.2-blue?style=for-the-badge)
 
 ---
 
@@ -472,7 +472,29 @@ The System Status page (`/system-status`) provides real-time monitoring of VoidL
 
 ## 📈 Changelog
 
-### Version 2.1 (November 3, 2025) - Current
+### Version 2.2 (November 8, 2025) - Current
+- ✅ **Critical Bug Fix**: Fixed global inactivity timer interfering with encryption/decryption operations
+  - Timer now automatically pauses during text encryption/decryption
+  - Timer pauses during image and bulk file encryption/decryption operations
+  - Prevents accidental page refresh and data loss during long-running operations
+- ✅ **Enhanced Session Clear Controls**:
+  - Reduced session timeout options to 1-4 minutes for better usability
+  - Added "SHOW IN APP" toggle to display floating countdown timer
+  - Floating timer appears in bottom-left corner with real-time countdown
+  - Timer accurately resets on user activity (mouse, keyboard, touch, scroll)
+  - Visual alerts when time is running low (last 30 seconds)
+  - Progress bar shows remaining time percentage
+  - Timer persists across all pages and respects operation pauses
+- ✅ **Bug Fixes & Code Quality**:
+  - Eliminated all browser console warnings and errors
+  - Fixed SVG transform syntax error in GeometricBackground component
+  - Fixed PWA manifest icon purpose field format
+  - Fixed duplicate HTML ID warnings
+  - Verified zero console.log statements in production code
+  - Enhanced code audit for production readiness
+  - Zero browser console errors in production deployment
+
+### Version 2.1 (November 3, 2025)
 - ✅ Multi-language support (English, Spanish, French, German, Hindi, Chinese, Arabic)
 - ✅ Bulk file encryption with individual file salts/IVs
 - ✅ Encrypted manifest for complete metadata privacy

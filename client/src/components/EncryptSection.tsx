@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useOutputFormat } from './OutputFormatProvider';
 import { useLanguage } from './LanguageProvider';
+import { useSessionClear } from './SessionClearProvider';
 import { Progress } from '@/components/ui/progress';
 import CryptoJS from 'crypto-js';
 import { detectDevice, getArgon2ParamsForDevice } from '@/lib/deviceDetection';
@@ -67,9 +68,10 @@ function textToHex(encrypted: string): string {
 
 interface EncryptSectionProps {
   onEncrypt?: (output: string) => void;
+  idSuffix?: string;
 }
 
-export default function EncryptSection({ onEncrypt }: EncryptSectionProps) {
+export default function EncryptSection({ onEncrypt, idSuffix = '' }: EncryptSectionProps) {
   const [message, setMessage, clearMessage] = useSensitiveState<string>('', { autoWipeOnUnmount: true });
   const [password, setPassword, clearPassword] = useSensitiveState<string>('', { autoWipeOnUnmount: true });
   const [showPassword, setShowPassword] = useState(false);
@@ -93,6 +95,7 @@ export default function EncryptSection({ onEncrypt }: EncryptSectionProps) {
   const { toast } = useToast();
   const { outputFormat } = useOutputFormat();
   const { t } = useLanguage();
+  const { setIsOperationInProgress } = useSessionClear();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -468,6 +471,7 @@ export default function EncryptSection({ onEncrypt }: EncryptSectionProps) {
     }
 
     setIsEncrypting(true);
+    setIsOperationInProgress(true);
 
     try {
       if (selectedFiles.length > 0) {
@@ -757,7 +761,10 @@ export default function EncryptSection({ onEncrypt }: EncryptSectionProps) {
           `An error occurred during encryption: ${errorMessage}`,
       });
     } finally {
-      setTimeout(() => setIsEncrypting(false), 600);
+      setTimeout(() => {
+        setIsEncrypting(false);
+        setIsOperationInProgress(false);
+      }, 600);
     }
   };
 
@@ -1024,12 +1031,12 @@ export default function EncryptSection({ onEncrypt }: EncryptSectionProps) {
           </div>
 
           <div>
-            <Label htmlFor="encrypt-password" className="text-sm font-medium uppercase tracking-wide text-muted-foreground mb-2 block">
+            <Label htmlFor={`encrypt-password${idSuffix}`} className="text-sm font-medium uppercase tracking-wide text-muted-foreground mb-2 block">
               {t.confidentialKey}
             </Label>
             <div className="relative">
               <Input
-                id="encrypt-password"
+                id={`encrypt-password${idSuffix}`}
                 data-testid="input-encrypt-password"
                 type={showPassword ? "text" : "password"}
                 placeholder={t.chooseConfidentialKey}

@@ -9,25 +9,37 @@ export default function ChangelogButton() {
 
   const updates = [
     {
+      version: "v2.2",
+      date: "November 8, 2025",
+      changes: [
+        "Fixed inactivity timer interfering with encryption/decryption",
+        "Floating countdown timer with 'SHOW IN APP' toggle",
+        "Session timeout reduced to 1-4 minutes max",
+        "Eliminated all browser console errors and warnings",
+        "Enhanced production code quality and security",
+      ],
+      icon: Sparkles,
+    },
+    {
       version: "v2.1",
       date: "November 3, 2025",
       changes: [
-        "Multi-language support (English, Spanish, French, German, Hindi, Chinese, Arabic)",
-        "Bulk file encryption with individual file salts/IVs",
+        "Multi-language support (7 languages)",
+        "Bulk file encryption with individual salts/IVs",
         "Encrypted manifest for complete metadata privacy",
         "Selective decryption (decrypt specific files or entire archive)",
         "Real-time progress tracking for bulk operations",
-        "Offline functionality (PWA)",
+        "Offline PWA functionality",
         "Auto-refresh security features",
         "Global inactivity timer",
         "Enhanced System Status page",
         "Fixed critical decryption freeze bug (16-50min → 3 seconds)",
-        "Fixed file picker bug on mobile devices",
+        "Fixed file picker bug on mobile devices (first-upload registration issue)",
         "Memory clearing after encryption/decryption operations",
         "Dark/Light theme toggle improvements",
         "UI/UX improvements",
       ],
-      icon: Sparkles,
+      icon: CheckCircle,
     },
     {
       version: "v2.0",

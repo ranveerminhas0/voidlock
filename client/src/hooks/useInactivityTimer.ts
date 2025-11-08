@@ -11,13 +11,21 @@ const ACTIVITY_EVENTS = [
 ];
 
 export function useInactivityTimer() {
-  const { timeoutMinutes, isEnabled } = useSessionClear();
+  const { timeoutMinutes, isEnabled, isOperationInProgress, setTimeRemaining } = useSessionClear();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const lastActivityRef = useRef<number>(Date.now());
 
   const handleRefresh = useCallback(() => {
     window.location.reload();
   }, []);
+
+  const updateTimeRemaining = useCallback(() => {
+    const elapsed = Date.now() - lastActivityRef.current;
+    const totalTime = timeoutMinutes * 60 * 1000;
+    const remaining = Math.max(0, totalTime - elapsed);
+    setTimeRemaining(Math.ceil(remaining / 1000));
+  }, [timeoutMinutes, setTimeRemaining]);
 
   const resetTimer = useCallback(() => {
     lastActivityRef.current = Date.now();
@@ -26,20 +34,35 @@ export function useInactivityTimer() {
       clearTimeout(timeoutRef.current);
     }
 
-    if (!isEnabled) return;
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    if (!isEnabled || isOperationInProgress) {
+      setTimeRemaining(0);
+      return;
+    }
+
+    setTimeRemaining(timeoutMinutes * 60);
+
+    intervalRef.current = setInterval(() => {
+      updateTimeRemaining();
+    }, 100);
 
     timeoutRef.current = setTimeout(() => {
-      handleRefresh();
+      if (!isOperationInProgress) {
+        handleRefresh();
+      }
     }, timeoutMinutes * 60 * 1000);
-  }, [timeoutMinutes, isEnabled, handleRefresh]);
+  }, [timeoutMinutes, isEnabled, isOperationInProgress, handleRefresh, setTimeRemaining, updateTimeRemaining]);
 
   useEffect(() => {
-    if (!isEnabled) {
+    if (!isEnabled || isOperationInProgress) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
       }
-      return;
+      if (isOperationInProgress) return;
     }
 
     resetTimer();
@@ -59,8 +82,11 @@ export function useInactivityTimer() {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
-  }, [isEnabled, resetTimer]);
+  }, [isEnabled, isOperationInProgress, resetTimer]);
 
   return { resetTimer };
 }

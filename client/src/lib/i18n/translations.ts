@@ -495,7 +495,7 @@ export const translations: Record<string, Translations> = {
   en: {
     appName: 'VoidLock',
     tagline: 'Multi-format encryption in your browser',
-    version: 'Version 2.1 - Stable Release',
+    version: 'Version 2.2 - Stable Release',
     
     encrypt: 'Encrypt',
     decrypt: 'Decrypt',
@@ -958,7 +958,7 @@ export const translations: Record<string, Translations> = {
   es: {
     appName: 'VoidLock',
     tagline: 'Cifrado multiformato en tu navegador',
-    version: 'Versión 2.1 - Versión Estable',
+    version: 'Versión 2.2 - Versión Estable',
     
     encrypt: 'Cifrar',
     decrypt: 'Descifrar',
@@ -1421,7 +1421,7 @@ export const translations: Record<string, Translations> = {
   fr: {
     appName: 'VoidLock',
     tagline: 'Chiffrement multi-format dans votre navigateur',
-    version: 'Version 2.1 - Version Stable',
+    version: 'Version 2.2 - Version Stable',
     
     encrypt: 'Chiffrer',
     decrypt: 'Déchiffrer',
@@ -1884,7 +1884,7 @@ export const translations: Record<string, Translations> = {
   de: {
     appName: 'VoidLock',
     tagline: 'Multiformat-Verschlüsselung in Ihrem Browser',
-    version: 'Version 2.1 - Stabile Version',
+    version: 'Version 2.2 - Stabile Version',
     
     encrypt: 'Verschlüsseln',
     decrypt: 'Entschlüsseln',
@@ -2347,7 +2347,7 @@ export const translations: Record<string, Translations> = {
   hi: {
     appName: 'VoidLock',
     tagline: 'आपके ब्राउज़र में मल्टी-फॉर्मेट एन्क्रिप्शन',
-    version: 'संस्करण 2.1 - स्थिर रिलीज़',
+    version: 'संस्करण 2.2 - स्थिर रिलीज़',
     
     encrypt: 'एन्क्रिप्ट करें',
     decrypt: 'डिक्रिप्ट करें',
@@ -2810,7 +2810,7 @@ export const translations: Record<string, Translations> = {
   zh: {
     appName: 'VoidLock',
     tagline: '在浏览器中进行多格式加密',
-    version: '版本 2.1 - 稳定版',
+    version: '版本 2.2 - 稳定版',
     
     encrypt: '加密',
     decrypt: '解密',
@@ -3273,7 +3273,7 @@ export const translations: Record<string, Translations> = {
   ar: {
     appName: 'VoidLock',
     tagline: 'تشفير متعدد الصيغ في متصفحك',
-    version: 'الإصدار 2.1 - إصدار مستقر',
+    version: 'الإصدار 2.2 - إصدار مستقر',
     
     encrypt: 'تشفير',
     decrypt: 'فك التشفير',

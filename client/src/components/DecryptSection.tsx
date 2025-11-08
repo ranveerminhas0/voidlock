@@ -23,6 +23,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useOutputFormat } from "./OutputFormatProvider";
 import { useLanguage } from "./LanguageProvider";
+import { useSessionClear } from "./SessionClearProvider";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import CryptoJS from "crypto-js";
 import {
@@ -343,10 +344,12 @@ function hexToText(hex: string): string {
 
 interface DecryptSectionProps {
   initialEncrypted?: string;
+  idSuffix?: string;
 }
 
 export default function DecryptSection({
   initialEncrypted,
+  idSuffix = '',
 }: DecryptSectionProps) {
   const [encryptedInput, setEncryptedInput, clearEncryptedInput] = useSensitiveState<string>(initialEncrypted || "", { autoWipeOnUnmount: true });
   const [password, setPassword, clearPassword] = useSensitiveState<string>("", { autoWipeOnUnmount: true });
@@ -382,6 +385,7 @@ export default function DecryptSection({
   const { toast } = useToast();
   const { outputFormat } = useOutputFormat();
   const { t } = useLanguage();
+  const { setIsOperationInProgress } = useSessionClear();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -791,6 +795,7 @@ export default function DecryptSection({
     }
 
     setIsDecrypting(true);
+    setIsOperationInProgress(true);
     setDecryptedBulkFiles([]);
     setBulkDecryptProgress({
       current: 0,
@@ -927,6 +932,7 @@ export default function DecryptSection({
       });
     } finally {
       setIsDecrypting(false);
+      setIsOperationInProgress(false);
     }
   };
 
@@ -964,7 +970,11 @@ export default function DecryptSection({
     }
 
     setIsDecrypting(true);
-    setTimeout(() => setIsDecrypting(false), 700);
+    setIsOperationInProgress(true);
+    setTimeout(() => {
+      setIsDecrypting(false);
+      setIsOperationInProgress(false);
+    }, 700);
 
     try {
       let decryptedString = "";
@@ -1552,14 +1562,14 @@ export default function DecryptSection({
 
           <div>
             <Label
-              htmlFor="decrypt-password"
+              htmlFor={`decrypt-password${idSuffix}`}
               className="text-sm font-medium uppercase tracking-wide text-muted-foreground mb-2 block"
             >
               {t.confidentialKey}
             </Label>
             <div className="relative">
               <Input
-                id="decrypt-password"
+                id={`decrypt-password${idSuffix}`}
                 data-testid="input-decrypt-password"
                 type={showPassword ? "text" : "password"}
                 placeholder={t.enterConfidentialKey}

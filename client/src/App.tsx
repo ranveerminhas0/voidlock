@@ -8,6 +8,7 @@ import { OutputFormatProvider } from "@/components/OutputFormatProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { SessionClearProvider } from "@/components/SessionClearProvider";
 import { useInactivityTimer } from "@/hooks/useInactivityTimer";
+import FloatingTimer from "@/components/FloatingTimer";
 import Home from "@/pages/Home";
 import Security from "@/pages/Security";
 import Privacy from "@/pages/Privacy";
@@ -21,16 +22,19 @@ function Router() {
   useInactivityTimer();
 
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/security" component={Security} />
-      <Route path="/privacy" component={Privacy} />
-      <Route path="/terms" component={Terms} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/report-vulnerability" component={ReportVulnerability} />
-      <Route path="/system-status" component={SystemStatus} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/security" component={Security} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/terms" component={Terms} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/report-vulnerability" component={ReportVulnerability} />
+        <Route path="/system-status" component={SystemStatus} />
+        <Route component={NotFound} />
+      </Switch>
+      <FloatingTimer />
+    </>
   );
 }
 

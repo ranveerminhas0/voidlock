@@ -33,7 +33,7 @@ export default function GeometricBackground() {
         <rect x="88%" y="65%" width="16" height="16" fill="none" stroke="hsl(0, 0%, 15%)" strokeWidth="1.5" opacity="0.2" transform="rotate(-30 88 65)" />
         
         <polygon points="0,0 200,50 150,250" fill="none" stroke="hsl(0, 0%, 15%)" strokeWidth="2" opacity="0.1" transform="translate(10, 10)" />
-        <polygon points="0,0 180,30 100,220" fill="none" stroke="hsl(0, 0%, 15%)" strokeWidth="2" opacity="0.1" transform="translate(80%, 70%) rotate(180)" />
+        <polygon points="0,0 180,30 100,220" fill="none" stroke="hsl(0, 0%, 15%)" strokeWidth="2" opacity="0.1" transform="translate(1200, 500) rotate(180)" />
       </svg>
     </div>
   );
