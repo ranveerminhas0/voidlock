@@ -1,4 +1,4 @@
-import { Shield, Github, Linkedin, Mail } from "lucide-react";
+import { Shield, Linkedin, Mail } from "lucide-react";
 import { Link } from "wouter";
 import {
   Tooltip,
@@ -30,7 +30,7 @@ export default function Footer() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="text-xs font-semibold text-muted-foreground cursor-help">
-                      v2.2
+                      v2.3
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -56,14 +56,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a
-                  href="https://github.com/ranveerminhas0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                >
-                  GitHub
-                </a>
+                <Link href="/release-notes">
+                  <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                    Release Notes
+                  </span>
+                </Link>
               </li>
               <li>
                 <Link href="/contact">
@@ -111,20 +108,12 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">{t.connectDeveloper}</h4>
             <div className="flex gap-3">
               <a
-                href="https://linkedin.com/in/ranveerminhas0"
+                href="https://www.linkedin.com/in/ranveer-minhas-114071275/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-background border border-border rounded-lg hover-elevate active-elevate-2"
               >
                 <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://github.com/ranveerminhas0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-background border border-border rounded-lg hover-elevate active-elevate-2"
-              >
-                <Github className="w-4 h-4" />
               </a>
               <a
                 href="mailto:ranveerminhas@proton.me"
@@ -143,7 +132,7 @@ export default function Footer() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <span className="text-[10px] font-semibold cursor-help">
-                  v2.2
+                  v2.3
                 </span>
               </TooltipTrigger>
               <TooltipContent>

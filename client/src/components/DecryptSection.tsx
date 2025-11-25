@@ -450,6 +450,16 @@ export default function DecryptSection({
     }
   }, [bulkManifest]);
 
+  // Cleanup isOperationInProgress if countdown is hidden/unmounted before completion
+  useEffect(() => {
+    if (showCountdown) {
+      // When countdown is shown, ensure cleanup happens if it's dismissed early
+      return () => {
+        setIsOperationInProgress(false);
+      };
+    }
+  }, [showCountdown, setIsOperationInProgress]);
+
   const base64ToArrayBuffer = (base64: string): ArrayBuffer => {
     try {
       const binary = atob(base64);
@@ -973,7 +983,7 @@ export default function DecryptSection({
     setIsOperationInProgress(true);
     setTimeout(() => {
       setIsDecrypting(false);
-      setIsOperationInProgress(false);
+      // Don't reset isOperationInProgress here - it will be handled based on success/failure
     }, 700);
 
     try {
@@ -1008,6 +1018,8 @@ export default function DecryptSection({
               className: "border-chart-2",
             });
 
+            // Bulk file detected - no countdown, so reset isOperationInProgress
+            setIsOperationInProgress(false);
             return;
           } catch (manifestError) {
             const result = await decryptFileWithArgon2(bytes.buffer, password);
@@ -1387,6 +1399,7 @@ export default function DecryptSection({
             setError(true);
             setDecryptedMessage("");
             setDecryptedImage(null);
+            setIsOperationInProgress(false); // Reset on error
             toast({
               variant: "destructive",
               title: "✗ Image decryption failed",
@@ -1416,6 +1429,7 @@ export default function DecryptSection({
       setError(true);
       setDecryptedMessage("");
       setDecryptedImage(null);
+      setIsOperationInProgress(false); // Reset on error
 
       // Rate limiting: Increment failed attempts and apply lockout
       const newAttempts = failedAttempts + 1;
@@ -1873,7 +1887,11 @@ export default function DecryptSection({
                 <div className="mt-4">
                   <CountdownTimer
                     initialSeconds={20}
-                    onComplete={() => window.location.reload()}
+                    onComplete={() => {
+                      // Reset operation flag before reload to ensure cleanup
+                      setIsOperationInProgress(false);
+                      window.location.reload();
+                    }}
                     message="Memory will be cleared in"
                   />
                 </div>

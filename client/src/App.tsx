@@ -16,6 +16,7 @@ import Terms from "@/pages/Terms";
 import Contact from "@/pages/Contact";
 import ReportVulnerability from "@/pages/ReportVulnerability";
 import SystemStatus from "@/pages/SystemStatus";
+import ReleaseNotes from "@/pages/ReleaseNotes";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/contact" component={Contact} />
         <Route path="/report-vulnerability" component={ReportVulnerability} />
         <Route path="/system-status" component={SystemStatus} />
+        <Route path="/release-notes" component={ReleaseNotes} />
         <Route component={NotFound} />
       </Switch>
       <FloatingTimer />

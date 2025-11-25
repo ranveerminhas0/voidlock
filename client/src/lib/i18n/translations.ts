@@ -489,13 +489,35 @@ export interface Translations {
   // Not Found Page
   notFoundTitle: string;
   notFoundDescription: string;
+
+  // Release Notes Page
+  releaseNotesTitle: string;
+  releaseNotesSubtitle: string;
+  downloadPdf: string;
+  released: string;
+  previousReleases: string;
+  viewChanges: string;
+  statusCurrent: string;
+  statusStable: string;
+  statusLegacy: string;
+  currentSecurityGrade: string;
+
+  // System Status Page - Additional Keys
+  runSystemTests: string;
+  clickToRunTests: string;
+  overallPerformance: string;
+  performanceMetrics: string;
+  latencyWaveforms: string;
+  historicalTrends: string;
+  latencyMs: string;
+  healthPercent: string;
 }
 
 export const translations: Record<string, Translations> = {
   en: {
     appName: 'VoidLock',
     tagline: 'Multi-format encryption in your browser',
-    version: 'Version 2.2 - Stable Release',
+    version: 'Version 2.3 - Stable Release',
     
     encrypt: 'Encrypt',
     decrypt: 'Decrypt',
@@ -895,13 +917,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: '3m ago',
     fiveMinutesAgo: '5m ago',
     aboutSystemStatusTitle: 'About System Status',
-    aboutSystemStatusDescription: 'This page displays the real-time status of VoidLock\'s client-side services. Since all encryption happens in your browser, most issues are related to browser compatibility or local performance rather than server outages.',
     operationalStatusTitle: 'Operational',
-    operationalStatusDescription: 'The service is functioning normally with no known issues.',
     degradedStatusTitle: 'Degraded',
-    degradedStatusDescription: 'The service is available but may be experiencing reduced performance or minor issues.',
     downStatusTitle: 'Down',
-    downStatusDescription: 'The service is currently unavailable or experiencing critical issues.',
 
     reportVulnerabilityTitle: 'Report a Vulnerability',
     reportVulnerabilitySubtitle: 'Help us keep VoidLock secure',
@@ -953,12 +971,36 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: 'Page Not Found',
     notFoundDescription: 'The page you\'re looking for doesn\'t exist.',
+
+    releaseNotesTitle: 'Release Notes',
+    releaseNotesSubtitle: 'Track the evolution of VoidLock\'s encryption technology and security enhancements',
+    downloadPdf: 'Download PDF',
+    released: 'Released',
+    previousReleases: 'Previous Releases',
+    viewChanges: 'View changes',
+    statusCurrent: 'Current',
+    statusStable: 'Stable',
+    statusLegacy: 'Legacy',
+    currentSecurityGrade: 'Current Security Grade:',
+
+    runSystemTests: 'Run System Tests',
+    clickToRunTests: 'Click the "Run System Tests" button above to begin real-time diagnostics and performance monitoring',
+    overallPerformance: 'Overall Performance:',
+    performanceMetrics: 'Performance Metrics',
+    latencyWaveforms: 'Latency Waveforms (Real-Time)',
+    historicalTrends: 'Historical Trends',
+    latencyMs: 'Latency (ms)',
+    healthPercent: 'Health %',
+    aboutSystemStatusDescription: 'This page provides real-time monitoring of VoidLock\'s core services. All encryption operations are performed client-side in your browser, and these tests verify the health and performance of the cryptographic components.',
+    operationalStatusDescription: 'All systems are functioning normally with optimal performance and response times.',
+    degradedStatusDescription: 'Some services are experiencing higher than normal latency but remain functional. Performance may be reduced.',
+    downStatusDescription: 'Critical service failure detected. Some features may be unavailable until the issue is resolved.',
   },
   
   es: {
     appName: 'VoidLock',
     tagline: 'Cifrado multiformato en tu navegador',
-    version: 'Versión 2.2 - Versión Estable',
+    version: 'Versión 2.3 - Versión Estable',
     
     encrypt: 'Cifrar',
     decrypt: 'Descifrar',
@@ -1358,13 +1400,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: 'hace 3m',
     fiveMinutesAgo: 'hace 5m',
     aboutSystemStatusTitle: 'Sobre el Estado del Sistema',
-    aboutSystemStatusDescription: 'Esta página muestra el estado en tiempo real de los servicios del lado del cliente de VoidLock. Dado que todo el cifrado ocurre en tu navegador, la mayoría de los problemas están relacionados con la compatibilidad del navegador o el rendimiento local en lugar de interrupciones del servidor.',
     operationalStatusTitle: 'Operacional',
-    operationalStatusDescription: 'El servicio está funcionando normalmente sin problemas conocidos.',
     degradedStatusTitle: 'Degradado',
-    degradedStatusDescription: 'El servicio está disponible pero puede estar experimentando rendimiento reducido o problemas menores.',
     downStatusTitle: 'Caído',
-    downStatusDescription: 'El servicio no está disponible actualmente o está experimentando problemas críticos.',
 
     reportVulnerabilityTitle: 'Reportar una Vulnerabilidad',
     reportVulnerabilitySubtitle: 'Ayúdanos a mantener VoidLock seguro',
@@ -1416,12 +1454,36 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: 'Página No Encontrada',
     notFoundDescription: 'La página que buscas no existe.',
+
+    releaseNotesTitle: 'Notas de la versión',
+    releaseNotesSubtitle: 'Sigue la evolución de la tecnología de cifrado de VoidLock y las mejoras de seguridad',
+    downloadPdf: 'Descargar PDF',
+    released: 'Lanzado',
+    previousReleases: 'Versiones anteriores',
+    viewChanges: 'Ver cambios',
+    statusCurrent: 'Actual',
+    statusStable: 'Estable',
+    statusLegacy: 'Heredado',
+    currentSecurityGrade: 'Grado de seguridad actual:',
+
+    runSystemTests: 'Ejecutar pruebas del sistema',
+    clickToRunTests: 'Haga clic en el botón "Ejecutar pruebas del sistema" para iniciar diagnósticos en tiempo real y monitoreo de rendimiento',
+    overallPerformance: 'Rendimiento general:',
+    performanceMetrics: 'Métricas de rendimiento',
+    latencyWaveforms: 'Formas de onda de latencia (tiempo real)',
+    historicalTrends: 'Tendencias históricas',
+    latencyMs: 'Latencia (ms)',
+    healthPercent: 'Salud %',
+    aboutSystemStatusDescription: 'Esta página proporciona monitoreo en tiempo real de los servicios principales de VoidLock. Todas las operaciones de cifrado se realizan del lado del cliente en su navegador, y estas pruebas verifican la salud y el rendimiento de los componentes criptográficos.',
+    operationalStatusDescription: 'Todos los sistemas funcionan normalmente con rendimiento óptimo y tiempos de respuesta.',
+    degradedStatusDescription: 'Algunos servicios experimentan una latencia superior a la normal pero siguen siendo funcionales. El rendimiento puede estar reducido.',
+    downStatusDescription: 'Se detectó una falla crítica del servicio. Algunas funciones pueden no estar disponibles hasta que se resuelva el problema.',
   },
   
   fr: {
     appName: 'VoidLock',
     tagline: 'Chiffrement multi-format dans votre navigateur',
-    version: 'Version 2.2 - Version Stable',
+    version: 'Version 2.3 - Version Stable',
     
     encrypt: 'Chiffrer',
     decrypt: 'Déchiffrer',
@@ -1821,13 +1883,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: 'il y a 3m',
     fiveMinutesAgo: 'il y a 5m',
     aboutSystemStatusTitle: 'À Propos de l\'État du Système',
-    aboutSystemStatusDescription: 'Cette page fournit une surveillance en temps réel de tous les composants du service VoidLock. Nous surveillons continuellement nos systèmes pour garantir des performances et une fiabilité optimales. Tous les temps de vérification sont en temps réel, et les pourcentages de disponibilité sont calculés sur la base des 30 derniers jours.',
     operationalStatusTitle: 'Opérationnel',
-    operationalStatusDescription: 'Le service fonctionne normalement avec toutes les fonctionnalités disponibles.',
     degradedStatusTitle: 'Dégradé',
-    degradedStatusDescription: 'Le service connaît des problèmes de performance mais reste fonctionnel.',
     downStatusTitle: 'Hors Service',
-    downStatusDescription: 'Le service est actuellement indisponible ou non fonctionnel.',
 
     reportVulnerabilityTitle: 'Signaler une Vulnérabilité',
     reportVulnerabilitySubtitle: 'Aidez-nous à garder VoidLock sécurisé pour tous',
@@ -1879,12 +1937,36 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: 'Page Non Trouvée',
     notFoundDescription: 'La page que vous recherchez n\'existe pas ou a été déplacée.',
+
+    releaseNotesTitle: 'Notes de version',
+    releaseNotesSubtitle: 'Suivez l\'évolution de la technologie de chiffrement de VoidLock et les améliorations de sécurité',
+    downloadPdf: 'Télécharger le PDF',
+    released: 'Publié',
+    previousReleases: 'Versions précédentes',
+    viewChanges: 'Voir les modifications',
+    statusCurrent: 'Actuel',
+    statusStable: 'Stable',
+    statusLegacy: 'Ancien',
+    currentSecurityGrade: 'Note de sécurité actuelle:',
+
+    runSystemTests: 'Exécuter les tests système',
+    clickToRunTests: 'Cliquez sur le bouton "Exécuter les tests système" pour lancer les diagnostics en temps réel et la surveillance des performances',
+    overallPerformance: 'Performance globale:',
+    performanceMetrics: 'Métriques de performance',
+    latencyWaveforms: 'Formes d\'onde de latence (temps réel)',
+    historicalTrends: 'Tendances historiques',
+    latencyMs: 'Latence (ms)',
+    healthPercent: 'Santé %',
+    aboutSystemStatusDescription: 'Cette page fournit une surveillance en temps réel des services principaux de VoidLock. Toutes les opérations de chiffrement sont effectuées côté client dans votre navigateur, et ces tests vérifient la santé et les performances des composants cryptographiques.',
+    operationalStatusDescription: 'Tous les systèmes fonctionnent normalement avec des performances et des temps de réponse optimaux.',
+    degradedStatusDescription: 'Certains services connaissent une latence supérieure à la normale mais restent fonctionnels. Les performances peuvent être réduites.',
+    downStatusDescription: 'Échec critique du service détecté. Certaines fonctionnalités peuvent être indisponibles jusqu\'à la résolution du problème.',
   },
   
   de: {
     appName: 'VoidLock',
     tagline: 'Multiformat-Verschlüsselung in Ihrem Browser',
-    version: 'Version 2.2 - Stabile Version',
+    version: 'Version 2.3 - Stabile Version',
     
     encrypt: 'Verschlüsseln',
     decrypt: 'Entschlüsseln',
@@ -2284,13 +2366,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: 'vor 3m',
     fiveMinutesAgo: 'vor 5m',
     aboutSystemStatusTitle: 'Über den Systemstatus',
-    aboutSystemStatusDescription: 'Diese Seite bietet Echtzeit-Überwachung aller VoidLock-Dienstkomponenten. Wir überwachen unsere Systeme kontinuierlich, um optimale Leistung und Zuverlässigkeit zu gewährleisten. Alle Prüfzeiten sind in Echtzeit und Verfügbarkeitsprozentsätze werden auf Basis der letzten 30 Tage berechnet.',
     operationalStatusTitle: 'Betriebsbereit',
-    operationalStatusDescription: 'Der Dienst läuft normal mit allen verfügbaren Funktionen.',
     degradedStatusTitle: 'Beeinträchtigt',
-    degradedStatusDescription: 'Der Dienst hat Leistungsprobleme, bleibt aber funktionsfähig.',
     downStatusTitle: 'Ausgefallen',
-    downStatusDescription: 'Der Dienst ist derzeit nicht verfügbar oder nicht funktionsfähig.',
 
     reportVulnerabilityTitle: 'Eine Sicherheitslücke Melden',
     reportVulnerabilitySubtitle: 'Helfen Sie uns, VoidLock für alle sicher zu halten',
@@ -2342,12 +2420,36 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: 'Seite Nicht Gefunden',
     notFoundDescription: 'Die Seite, nach der Sie suchen, existiert nicht oder wurde verschoben.',
+
+    releaseNotesTitle: 'Versionshinweise',
+    releaseNotesSubtitle: 'Verfolgen Sie die Entwicklung der Verschlüsselungstechnologie und Sicherheitsverbesserungen von VoidLock',
+    downloadPdf: 'PDF herunterladen',
+    released: 'Veröffentlicht',
+    previousReleases: 'Frühere Versionen',
+    viewChanges: 'Änderungen anzeigen',
+    statusCurrent: 'Aktuell',
+    statusStable: 'Stabil',
+    statusLegacy: 'Veraltet',
+    currentSecurityGrade: 'Aktuelle Sicherheitsbewertung:',
+
+    runSystemTests: 'Systemtests ausführen',
+    clickToRunTests: 'Klicken Sie auf die Schaltfläche "Systemtests ausführen", um Echtzeit-Diagnosen und Leistungsüberwachung zu starten',
+    overallPerformance: 'Gesamtleistung:',
+    performanceMetrics: 'Leistungsmetriken',
+    latencyWaveforms: 'Latenz-Wellenformen (Echtzeit)',
+    historicalTrends: 'Historische Trends',
+    latencyMs: 'Latenz (ms)',
+    healthPercent: 'Gesundheit %',
+    aboutSystemStatusDescription: 'Diese Seite bietet Echtzeit-Überwachung der Kerndienste von VoidLock. Alle Verschlüsselungsvorgänge werden clientseitig in Ihrem Browser durchgeführt, und diese Tests überprüfen die Gesundheit und Leistung der kryptografischen Komponenten.',
+    operationalStatusDescription: 'Alle Systeme funktionieren normal mit optimaler Leistung und Reaktionszeiten.',
+    degradedStatusDescription: 'Einige Dienste haben eine höhere Latenz als normal, bleiben aber funktionsfähig. Die Leistung kann eingeschränkt sein.',
+    downStatusDescription: 'Kritischer Dienstausfall erkannt. Einige Funktionen sind möglicherweise nicht verfügbar, bis das Problem behoben ist.',
   },
   
   hi: {
     appName: 'VoidLock',
     tagline: 'आपके ब्राउज़र में मल्टी-फॉर्मेट एन्क्रिप्शन',
-    version: 'संस्करण 2.2 - स्थिर रिलीज़',
+    version: 'संस्करण 2.3 - स्थिर रिलीज़',
     
     encrypt: 'एन्क्रिप्ट करें',
     decrypt: 'डिक्रिप्ट करें',
@@ -2747,13 +2849,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: '3मिनट पहले',
     fiveMinutesAgo: '5मिनट पहले',
     aboutSystemStatusTitle: 'सिस्टम स्थिति के बारे में',
-    aboutSystemStatusDescription: 'यह पृष्ठ सभी VoidLock सेवा घटकों की वास्तविक समय निगरानी प्रदान करता है। हम इष्टतम प्रदर्शन और विश्वसनीयता सुनिश्चित करने के लिए अपने सिस्टम की लगातार निगरानी करते हैं। सभी जांच समय वास्तविक समय में हैं, और अपटाइम प्रतिशत पिछले 30 दिनों के आधार पर गणना किए जाते हैं।',
     operationalStatusTitle: 'चालू',
-    operationalStatusDescription: 'सेवा सभी सुविधाओं के साथ सामान्य रूप से चल रही है।',
     degradedStatusTitle: 'गिरावट',
-    degradedStatusDescription: 'सेवा में प्रदर्शन समस्याएं हैं लेकिन कार्यात्मक बनी हुई है।',
     downStatusTitle: 'डाउन',
-    downStatusDescription: 'सेवा वर्तमान में अनुपलब्ध या गैर-कार्यात्मक है।',
 
     reportVulnerabilityTitle: 'भेद्यता की रिपोर्ट करें',
     reportVulnerabilitySubtitle: 'VoidLock को सभी के लिए सुरक्षित रखने में हमारी मदद करें',
@@ -2805,12 +2903,36 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: 'पृष्ठ नहीं मिला',
     notFoundDescription: 'आप जो पृष्ठ खोज रहे हैं वह मौजूद नहीं है या स्थानांतरित कर दिया गया है।',
+
+    releaseNotesTitle: 'रिलीज़ नोट्स',
+    releaseNotesSubtitle: 'VoidLock की एन्क्रिप्शन तकनीक और सुरक्षा सुधारों के विकास को ट्रैक करें',
+    downloadPdf: 'PDF डाउनलोड करें',
+    released: 'जारी किया गया',
+    previousReleases: 'पिछली रिलीज़',
+    viewChanges: 'परिवर्तन देखें',
+    statusCurrent: 'वर्तमान',
+    statusStable: 'स्थिर',
+    statusLegacy: 'विरासत',
+    currentSecurityGrade: 'वर्तमान सुरक्षा ग्रेड:',
+
+    runSystemTests: 'सिस्टम परीक्षण चलाएं',
+    clickToRunTests: 'वास्तविक समय निदान और प्रदर्शन निगरानी शुरू करने के लिए "सिस्टम परीक्षण चलाएं" बटन पर क्लिक करें',
+    overallPerformance: 'समग्र प्रदर्शन:',
+    performanceMetrics: 'प्रदर्शन मेट्रिक्स',
+    latencyWaveforms: 'लेटेंसी वेवफॉर्म (रीयल-टाइम)',
+    historicalTrends: 'ऐतिहासिक रुझान',
+    latencyMs: 'लेटेंसी (ms)',
+    healthPercent: 'स्वास्थ्य %',
+    aboutSystemStatusDescription: 'यह पृष्ठ VoidLock की मुख्य सेवाओं की वास्तविक समय निगरानी प्रदान करता है। सभी एन्क्रिप्शन ऑपरेशन आपके ब्राउज़र में क्लाइंट-साइड किए जाते हैं, और ये परीक्षण क्रिप्टोग्राफिक घटकों के स्वास्थ्य और प्रदर्शन को सत्यापित करते हैं।',
+    operationalStatusDescription: 'सभी सिस्टम इष्टतम प्रदर्शन और प्रतिक्रिया समय के साथ सामान्य रूप से काम कर रहे हैं।',
+    degradedStatusDescription: 'कुछ सेवाओं में सामान्य से अधिक लेटेंसी हो रही है लेकिन वे कार्यात्मक बनी हुई हैं। प्रदर्शन कम हो सकता है।',
+    downStatusDescription: 'महत्वपूर्ण सेवा विफलता का पता चला। समस्या हल होने तक कुछ सुविधाएं अनुपलब्ध हो सकती हैं।',
   },
   
   zh: {
     appName: 'VoidLock',
     tagline: '在浏览器中进行多格式加密',
-    version: '版本 2.2 - 稳定版',
+    version: '版本 2.3 - 稳定版',
     
     encrypt: '加密',
     decrypt: '解密',
@@ -3210,13 +3332,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: '3分钟前',
     fiveMinutesAgo: '5分钟前',
     aboutSystemStatusTitle: '关于系统状态',
-    aboutSystemStatusDescription: '此页面显示VoidLock客户端服务的实时状态。由于所有加密都在您的浏览器中进行，大多数问题与浏览器兼容性或本地性能有关，而不是服务器中断。',
     operationalStatusTitle: '运行正常',
-    operationalStatusDescription: '服务正常运行，没有已知问题。',
     degradedStatusTitle: '降级',
-    degradedStatusDescription: '服务可用，但可能会遇到性能降低或小问题。',
     downStatusTitle: '停止',
-    downStatusDescription: '服务目前不可用或遇到严重问题。',
 
     reportVulnerabilityTitle: '报告漏洞',
     reportVulnerabilitySubtitle: '帮助我们保持VoidLock安全',
@@ -3268,12 +3386,36 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: '页面未找到',
     notFoundDescription: '您要查找的页面不存在。',
+
+    releaseNotesTitle: '发布说明',
+    releaseNotesSubtitle: '追踪 VoidLock 加密技术和安全增强的演变',
+    downloadPdf: '下载 PDF',
+    released: '发布于',
+    previousReleases: '以前的版本',
+    viewChanges: '查看更改',
+    statusCurrent: '当前',
+    statusStable: '稳定',
+    statusLegacy: '旧版',
+    currentSecurityGrade: '当前安全等级:',
+
+    runSystemTests: '运行系统测试',
+    clickToRunTests: '点击"运行系统测试"按钮开始实时诊断和性能监控',
+    overallPerformance: '总体性能:',
+    performanceMetrics: '性能指标',
+    latencyWaveforms: '延迟波形（实时）',
+    historicalTrends: '历史趋势',
+    latencyMs: '延迟（毫秒）',
+    healthPercent: '健康度 %',
+    aboutSystemStatusDescription: '此页面提供 VoidLock 核心服务的实时监控。所有加密操作都在您的浏览器中客户端执行，这些测试验证加密组件的健康状况和性能。',
+    operationalStatusDescription: '所有系统均正常运行，具有最佳性能和响应时间。',
+    degradedStatusDescription: '某些服务的延迟高于正常水平，但仍然正常运行。性能可能会降低。',
+    downStatusDescription: '检测到关键服务故障。在问题解决之前，某些功能可能不可用。',
   },
   
   ar: {
     appName: 'VoidLock',
     tagline: 'تشفير متعدد الصيغ في متصفحك',
-    version: 'الإصدار 2.2 - إصدار مستقر',
+    version: 'الإصدار 2.3 - إصدار مستقر',
     
     encrypt: 'تشفير',
     decrypt: 'فك التشفير',
@@ -3673,13 +3815,9 @@ export const translations: Record<string, Translations> = {
     threeMinutesAgo: 'منذ 3د',
     fiveMinutesAgo: 'منذ 5د',
     aboutSystemStatusTitle: 'حول حالة النظام',
-    aboutSystemStatusDescription: 'تعرض هذه الصفحة الحالة في الوقت الفعلي لخدمات VoidLock من جانب العميل. نظراً لأن كل التشفير يحدث في متصفحك، فإن معظم المشاكل تتعلق بتوافق المتصفح أو الأداء المحلي بدلاً من انقطاع الخادم.',
     operationalStatusTitle: 'يعمل',
-    operationalStatusDescription: 'تعمل الخدمة بشكل طبيعي دون مشاكل معروفة.',
     degradedStatusTitle: 'متدهور',
-    degradedStatusDescription: 'الخدمة متاحة ولكن قد تواجه أداءً منخفضاً أو مشاكل بسيطة.',
     downStatusTitle: 'معطل',
-    downStatusDescription: 'الخدمة غير متاحة حالياً أو تواجه مشاكل حرجة.',
 
     reportVulnerabilityTitle: 'الإبلاغ عن ثغرة',
     reportVulnerabilitySubtitle: 'ساعدنا في الحفاظ على أمان VoidLock',
@@ -3731,5 +3869,29 @@ export const translations: Record<string, Translations> = {
 
     notFoundTitle: 'الصفحة غير موجودة',
     notFoundDescription: 'الصفحة التي تبحث عنها غير موجودة.',
+
+    releaseNotesTitle: 'ملاحظات الإصدار',
+    releaseNotesSubtitle: 'تتبع تطور تقنية التشفير وتحسينات الأمان في VoidLock',
+    downloadPdf: 'تنزيل PDF',
+    released: 'تم الإصدار',
+    previousReleases: 'الإصدارات السابقة',
+    viewChanges: 'عرض التغييرات',
+    statusCurrent: 'الحالي',
+    statusStable: 'مستقر',
+    statusLegacy: 'قديم',
+    currentSecurityGrade: 'درجة الأمان الحالية:',
+
+    runSystemTests: 'تشغيل اختبارات النظام',
+    clickToRunTests: 'انقر على زر "تشغيل اختبارات النظام" لبدء التشخيص في الوقت الفعلي ومراقبة الأداء',
+    overallPerformance: 'الأداء العام:',
+    performanceMetrics: 'مقاييس الأداء',
+    latencyWaveforms: 'أشكال موجات الكمون (الوقت الفعلي)',
+    historicalTrends: 'الاتجاهات التاريخية',
+    latencyMs: 'الكمون (ميلي ثانية)',
+    healthPercent: 'الصحة %',
+    aboutSystemStatusDescription: 'توفر هذه الصفحة مراقبة في الوقت الفعلي للخدمات الأساسية لـ VoidLock. يتم تنفيذ جميع عمليات التشفير من جانب العميل في متصفحك، وتتحقق هذه الاختبارات من صحة وأداء المكونات التشفيرية.',
+    operationalStatusDescription: 'جميع الأنظمة تعمل بشكل طبيعي مع الأداء الأمثل وأوقات الاستجابة.',
+    degradedStatusDescription: 'تواجه بعض الخدمات كموناً أعلى من المعتاد ولكنها تظل عاملة. قد ينخفض الأداء.',
+    downStatusDescription: 'تم اكتشاف فشل خدمة حرج. قد تكون بعض الميزات غير متاحة حتى يتم حل المشكلة.',
   },
 };

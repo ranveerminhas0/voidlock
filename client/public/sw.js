@@ -1,20 +1,20 @@
 // VoidLock Service Worker - Client-side only asset precaching for offline support
-const CACHE_NAME = 'voidlock-v2.1.1';
+const CACHE_NAME = "voidlock-v2.3.34";
 
 // Install event - fetch static asset manifest and precache all built assets
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    fetch('/sw-assets.json')
+    fetch("/sw-assets.json")
       .then((response) => response.json())
       .then((data) => {
         return caches.open(CACHE_NAME).then((cache) => {
           return cache.addAll(data.assets).catch(() => {
             return cache.addAll([
-              '/',
-              '/index.html',
-              '/manifest.json',
-              '/icon-192.png',
-              '/icon-512.png'
+              "/",
+              "/index.html",
+              "/manifest.json",
+              "/icon-192.png",
+              "/icon-512.png",
             ]);
           });
         });
@@ -22,50 +22,53 @@ self.addEventListener('install', (event) => {
       .catch(() => {
         return caches.open(CACHE_NAME).then((cache) => {
           return cache.addAll([
-            '/',
-            '/index.html',
-            '/manifest.json',
-            '/icon-192.png',
-            '/icon-512.png'
+            "/",
+            "/index.html",
+            "/manifest.json",
+            "/icon-192.png",
+            "/icon-512.png",
           ]);
         });
       })
-      .then(() => self.skipWaiting())
+      .then(() => self.skipWaiting()),
   );
 });
 
 // Activate event - take control immediately
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches
+      .keys()
+      .then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+          }),
+        );
+      })
+      .then(() => self.clients.claim()),
   );
 });
 
 // Fetch event - cache-first with automatic caching of all assets
-self.addEventListener('fetch', (event) => {
+self.addEventListener("fetch", (event) => {
   // Skip non-GET requests
-  if (event.request.method !== 'GET') {
+  if (event.request.method !== "GET") {
     return;
   }
 
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Return cached response if found
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+    caches.match(event.request).then((cachedResponse) => {
+      // Return cached response if found
+      if (cachedResponse) {
+        return cachedResponse;
+      }
 
-        // Fetch from network and cache
-        return fetch(event.request).then((response) => {
+      // Fetch from network and cache
+      return fetch(event.request)
+        .then((response) => {
           // Only cache valid responses
           if (!response || response.status !== 200) {
             return response;
@@ -84,13 +87,14 @@ self.addEventListener('fetch', (event) => {
           });
 
           return response;
-        }).catch(() => {
+        })
+        .catch(() => {
           // Offline fallback - return index.html for navigation requests
-          if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
+          if (event.request.mode === "navigate") {
+            return caches.match("/index.html");
           }
-          return new Response('Offline', { status: 503 });
+          return new Response("Offline", { status: 503 });
         });
-      })
+    }),
   );
 });

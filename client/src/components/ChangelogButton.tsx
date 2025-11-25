@@ -9,6 +9,21 @@ export default function ChangelogButton() {
 
   const updates = [
     {
+      version: "v2.3",
+      date: "November 23, 2025",
+      changes: [
+        "Fixed decrypt countdown timer staying paused issue",
+        "Floating timer shows red outline when countdown is active",
+        "Global inactivity timer pauses during decrypt countdown",
+        "Improved user feedback during sensitive operations",
+        "Redesigned System Status page with timeline-style cards",
+        "Updated latency thresholds: Operational (0-67ms), Degraded (67-200ms+), Down (error-based only)",
+        "Enhanced Historical Trends chart with dual Y-axes and threshold reference lines",
+        "Improved mobile responsiveness for all status indicators",
+      ],
+      icon: Sparkles,
+    },
+    {
       version: "v2.2",
       date: "November 8, 2025",
       changes: [
@@ -18,7 +33,7 @@ export default function ChangelogButton() {
         "Eliminated all browser console errors and warnings",
         "Enhanced production code quality and security",
       ],
-      icon: Sparkles,
+      icon: CheckCircle,
     },
     {
       version: "v2.1",

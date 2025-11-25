@@ -1,4 +1,4 @@
-# 🔒 VoidLock v2.2
+# 🔒 VoidLock v2.3
 
 **Secure, Private, Client-Side Encryption for Everyone**
 
@@ -8,7 +8,7 @@
 
 VoidLock is a modern, client-side encryption utility that transforms your messages, images, and entire folders into multiple secure formats. Built with cutting-edge cryptographic standards, VoidLock ensures your data stays private—processed entirely in your browser, never touching any server.
 
-![VoidLock Banner](https://img.shields.io/badge/VoidLock-v2.2-blue?style=for-the-badge)
+![VoidLock Banner](https://img.shields.io/badge/VoidLock-v2.3-blue?style=for-the-badge)
 
 ---
 
@@ -472,7 +472,23 @@ The System Status page (`/system-status`) provides real-time monitoring of VoidL
 
 ## 📈 Changelog
 
-### Version 2.2 (November 8, 2025) - Current
+### Version 2.3 (November 23, 2025) - Current
+- ✅ **Timer & UI Improvements**:
+  - Fixed decrypt countdown timer staying paused issue
+  - Floating timer shows red outline when countdown is active
+  - Global inactivity timer pauses during decrypt countdown
+  - Improved user feedback during sensitive operations
+- ✅ **Enhanced System Status Page**:
+  - Redesigned System Status page with timeline-style cards
+  - Updated latency thresholds: Operational (0-67ms), Degraded (67-200ms+), Down (error-based only)
+  - Enhanced Historical Trends chart with dual Y-axes and threshold reference lines
+  - Improved mobile responsiveness for all status indicators
+- ✅ **New Release Notes Page**:
+  - Added dedicated Release Notes page with version history
+  - Download release notes as PDF feature
+  - Beautiful timeline-style changelog presentation
+
+### Version 2.2 (November 8, 2025)
 - ✅ **Critical Bug Fix**: Fixed global inactivity timer interfering with encryption/decryption operations
   - Timer now automatically pauses during text encryption/decryption
   - Timer pauses during image and bulk file encryption/decryption operations

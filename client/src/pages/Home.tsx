@@ -4,7 +4,6 @@ import EncryptSection from "@/components/EncryptSection";
 import DecryptSection from "@/components/DecryptSection";
 import ThemeSidebar from "@/components/ThemeSidebar";
 import Footer from "@/components/Footer";
-import ChangelogButton from "@/components/ChangelogButton";
 import LanguageSelectorButton from "@/components/LanguageSelectorButton";
 import { useLanguage } from "@/components/LanguageProvider";
 import {
@@ -63,7 +62,7 @@ export default function Home() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="text-xs font-semibold text-muted-foreground cursor-help">
-                      v2.2
+                      v2.3
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -566,9 +565,6 @@ export default function Home() {
 
         <Footer />
       </div>
-
-      {/* Fixed Changelog Button */}
-      <ChangelogButton />
 
       {/* Fixed Language Selector Button */}
       <LanguageSelectorButton />
