@@ -128,7 +128,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="border-t border-border pt-6 text-center">
           <p className="text-xs text-muted-foreground">
-            © 2025 VoidLock{" "}
+            © 2026 VoidLock{" "}
             <Tooltip>
               <TooltipTrigger asChild>
                 <span className="text-[10px] font-semibold cursor-help">
