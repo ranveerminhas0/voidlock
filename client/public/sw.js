@@ -1,5 +1,5 @@
 // VoidLock Service Worker - Client-side only asset precaching for offline support
-const CACHE_NAME = "voidlock-v2.3.34";
+const CACHE_NAME = "voidlock-v2.3.35";
 
 // Install event - fetch static asset manifest and precache all built assets
 self.addEventListener("install", (event) => {
