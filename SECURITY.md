@@ -18,9 +18,9 @@ VoidLock v2.1 has undergone a comprehensive 50-point security audit covering all
 
 ### Key Findings Summary
 
-** Tests Passed:** 50/50 (100%)  
-** Warnings:** 0/50 (0%)  
-** Critical Failures:** 0/50 (0%)
+**Tests Passed:** 50/50 (100%)  
+**Warnings:** 0/50 (0%)  
+**Critical Failures:** 0/50 (0%)
 
 **Security Improvements (November 2-4, 2025):**
 -  CSP headers added to index.html (November 2, 2025)
